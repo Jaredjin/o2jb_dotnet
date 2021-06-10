@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option csharp_namespace = "dmstar.net.Proto";
+
+import "common.proto";
+
+package proto.statement;
+
+enum ParameterType {
+  INT = 0;
+  LONG = 1;
+  SHORT = 2;
+  FLOAT = 3;
+  DOUBLE = 4;
+  STRING = 5;
+  BOOLEAN = 6;
+  TIME = 7;
+  DATE = 8;
+}
+
+//service StatementService {
+//  rpc createStatement (CreateStatementRequest) returns (CreateStatementResponse);
+//  rpc executeStatement (ExecuteStatementRequest) returns (ExecuteStatementResponse);
+//  rpc cancelStatement (CancelStatementRequest) returns (google.protobuf.Empty);
+//  rpc closeStatement (CloseStatementRequest) returns (google.protobuf.Empty);
+//  rpc setParameter (SetParameterRequest) returns (google.protobuf.Empty);
+//}
+
+message CreateStatementRequest {
+  string connectionId = 1;
+  string sql = 2;
+}
+
+message CreateStatementResponse {
+  string statementId = 1;
+}
+
+message ExecuteStatementRequest {
+  string statementId = 1;
+  int32 fetchSize = 2;
+}
+
+message ExecuteStatementResponse {
+  string resultSetId = 1;
+  int32 recordsAffected = 2;
+  bool hasRows = 4;
+  repeated JdbcDataColumn columns = 5;
+}
+
+message CancelStatementRequest {
+  string statementId = 1;
+}
+
+message CloseStatementRequest {
+  string statementId = 1;
+}
+
+message SetParameterRequest {
+  string statementId = 1;
+  int32 index = 3;
+  string value = 4;
+  ParameterType type = 5;
+}

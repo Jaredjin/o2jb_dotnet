@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "dmstar.net.Proto";
+
+package proto.driver;
+
+//service DriverService {
+//    rpc loadDriver (LoadDriverRequest) returns (LoadDriverResponse);
+//}
+
+message LoadDriverRequest {
+	string className = 1;
+}
+
+message LoadDriverResponse {
+  int32 majorVersion = 1;
+  int32 minorVersion = 2;
+}

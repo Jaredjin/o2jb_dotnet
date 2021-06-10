@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+package proto.driver;
+
+message LoadDriverRequest {
+  optional string className = 1;
+}
+
+message LoadDriverResponse {
+  optional int32 majorVersion = 1;
+  optional int32 minorVersion = 2;
+}

@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option csharp_namespace = "dmstar.net.Proto";
+
+package proto.database;
+
+enum TransactionIsolation {
+  NONE = 0;
+  READ_COMMITTED = 2;
+  READ_UNCOMMITTED = 1;
+  REPEATABLE_READ = 4;
+  SERIALIZABLE = 8;
+}
+
+//service DatabaseService {
+//  rpc openConnection (OpenConnectionRequest) returns (OpenConnectionResponse);
+//  rpc closeConnection (CloseConnectionRequest) returns (google.protobuf.Empty);
+//  rpc changeCatalog (ChangeCatalogRequest) returns (google.protobuf.Empty);
+//  rpc setAutoCommit (SetAutoCommitRequest) returns (google.protobuf.Empty);
+//  rpc getTransactionIsolation (GetTransactionIsolationRequest) returns (GetTransactionIsolationResponse);
+//  rpc setTransactionIsolation (SetTransactionIsolationRequest) returns (google.protobuf.Empty);
+//  rpc rollback (TransactionRequest) returns (google.protobuf.Empty);
+//  rpc commit (TransactionRequest) returns (google.protobuf.Empty);
+//}
+
+message Map{
+  string key = 1;
+  string value = 2;
+}
+
+message OpenConnectionRequest {
+  string jdbcUrl = 1;
+  repeated Map properties = 2;
+}
+
+message OpenConnectionResponse {
+  string connectionId = 1;
+  string catalog = 2;
+  string databaseProductName = 3;
+  string databaseProductVersion = 4;
+  int32 databaseMajorVersion = 5;
+  int32 databaseMinorVersion = 6;
+}
+
+message CloseConnectionRequest {
+  string connectionId = 1;
+}
+
+message ChangeCatalogRequest {
+  string connectionId = 1;
+  string catalogName = 2;
+}
+
+message GetTransactionIsolationRequest {
+  string connectionId = 1;
+}
+
+message GetTransactionIsolationResponse {
+  TransactionIsolation isolation = 1;
+}
+
+message SetTransactionIsolationRequest {
+  string connectionId = 1;
+  TransactionIsolation isolation = 2;
+}
+
+message SetAutoCommitRequest {
+  string connectionId = 1;
+  bool useAutoCommit = 2;
+}
+
+message TransactionRequest {
+  string connectionId = 1;
+}

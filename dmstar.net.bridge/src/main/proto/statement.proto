@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+import "common.proto";
+
+package proto.statement;
+
+enum ParameterType {
+  INT = 0;
+  LONG = 1;
+  SHORT = 2;
+  FLOAT = 3;
+  DOUBLE = 4;
+  STRING = 5;
+  BOOLEAN = 6;
+  TIME = 7;
+  DATE = 8;
+}
+
+message CreateStatementRequest {
+  optional string connectionId = 1;
+  optional string sql = 2;
+}
+
+message CreateStatementResponse {
+  optional string statementId = 1;
+}
+
+message ExecuteStatementRequest {
+  optional string statementId = 1;
+  optional int32 fetchSize = 2;
+}
+
+message ExecuteStatementResponse {
+  optional string resultSetId = 1;
+  optional int32 recordsAffected = 2;
+  optional bool hasRows = 4;
+  repeated JdbcDataColumn columns = 5;
+}
+
+message CancelStatementRequest {
+  optional string statementId = 1;
+}
+
+message CloseStatementRequest {
+  optional string statementId = 1;
+}
+
+message SetParameterRequest {
+  optional string statementId = 1;
+  optional int32 index = 3;
+  optional string value = 4;
+  optional ParameterType type = 5;
+}

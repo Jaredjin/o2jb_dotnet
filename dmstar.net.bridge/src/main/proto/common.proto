@@ -1,0 +1,77 @@
+syntax = "proto2";
+
+package proto;
+
+enum MsgCode {
+  LoadDriver = 0;
+
+  OpenConnection = 1;
+  CloseConnection = 2;
+  ChangeCatalog = 3;
+  SetAutoCommit = 4;
+  GetTransactionIsolation = 5;
+  SetTransactionIsolation = 6;
+  Rollback = 7;
+  Commit = 8;
+
+  CreateStatement = 9;
+  ExecuteStatement = 10;
+  CancelStatement = 11;
+  CloseStatement = 12;
+  SetParameter = 13;
+
+  ReadResultSet = 14;
+  CloseResultSet = 15;
+}
+
+message Empty {
+
+}
+
+message ReqWrapper {
+  required MsgCode code = 1;
+  optional bytes data = 2;
+}
+
+message ResWrapper {
+  required bool success = 1;
+  optional string msg = 2;
+  optional bytes data = 3;
+}
+
+message JdbcDataColumn {
+  optional int32 ordinal = 1;
+  optional string tableName = 2;
+  optional string schemaName = 3;
+  optional string catalogName = 4;
+  optional string columnName = 5;
+  optional string columnLabel = 6;
+  optional int32 columnDisplaySize = 7;
+  optional int32 columnPrecision = 8;
+  optional int32 columnScale = 9;
+  optional string dataTypeName = 10;
+  optional string dataTypeClassName = 11;
+  optional int32 dataTypeCode = 12;
+  optional bool isAutoIncrement = 13;
+  optional bool isCaseSensitive = 14;
+  optional bool isDefinitelyWritable = 15;
+  optional bool isSearchable = 16;
+  optional int32 isNullable = 17;
+  optional bool isAliased = 18;
+  optional bool isWritable = 19;
+  optional bool isCurrency = 20;
+  optional bool isReadOnly = 21;
+  optional bool isSigned = 22;
+}
+
+message JdbcDataRow {
+  repeated JdbcDataItem items = 1;
+}
+
+message JdbcDataItem {
+  oneof value {
+    string text = 1;
+    bytes byteArray = 2;
+  }
+  optional bool isNull = 3;
+}

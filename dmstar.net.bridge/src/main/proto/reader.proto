@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+import "common.proto";
+
+package proto.reader;
+
+message ReadResultSetRequest {
+  optional string resultSetId = 1;
+  optional int32 chunkSize = 2;
+}
+
+message ReadResultSetResponse {
+  repeated JdbcDataRow rows = 1;
+  optional bool isCompleted = 2;
+}
+
+message CloseResultSetRequest {
+  optional string resultSetId = 1;
+}

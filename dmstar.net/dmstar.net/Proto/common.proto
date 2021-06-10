@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option csharp_namespace = "dmstar.net.Proto";
+
+package proto;
+
+enum MsgCode {
+  LoadDriver = 0;
+
+  OpenConnection = 1;
+  CloseConnection = 2;
+  ChangeCatalog = 3;
+  SetAutoCommit = 4;
+  GetTransactionIsolation = 5;
+  SetTransactionIsolation = 6;
+  Rollback = 7;
+  Commit = 8;
+
+  CreateStatement = 9;
+  ExecuteStatement = 10;
+  CancelStatement = 11;
+  CloseStatement = 12;
+  SetParameter = 13;
+
+  ReadResultSet = 14;
+  CloseResultSet = 15;
+}
+
+message Empty {
+
+}
+
+message ReqWrapper {
+  MsgCode code = 1;
+  bytes data = 2;
+}
+
+message ResWrapper {
+  bool success = 1;
+  string msg = 2;
+  bytes data = 3;
+}
+
+message JdbcDataColumn {
+  int32 ordinal = 1;
+  string tableName = 2;
+  string schemaName = 3;
+  string catalogName = 4;
+  string columnName = 5;
+  string columnLabel = 6;
+  int32 columnDisplaySize = 7;
+  int32 columnPrecision = 8;
+  int32 columnScale = 9;
+  string dataTypeName = 10;
+  string dataTypeClassName = 11;
+  int32 dataTypeCode = 12;
+  bool isAutoIncrement = 13;
+  bool isCaseSensitive = 14;
+  bool isDefinitelyWritable = 15;
+  bool isSearchable = 16;
+  int32 isNullable = 17;
+  bool isAliased = 18;
+  bool isWritable = 19;
+  bool isCurrency = 20;
+  bool isReadOnly = 21;
+  bool isSigned = 22;
+}
+
+message JdbcDataRow {
+  repeated JdbcDataItem items = 1;
+}
+
+message JdbcDataItem {
+  oneof value {
+    string text = 1;
+    bytes byteArray = 2;
+  }
+  bool isNull = 3;
+}
