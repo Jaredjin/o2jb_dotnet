@@ -20,13 +20,13 @@ namespace dmstar.net.Utilities
             IntPtr adoPtr;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-#if DEBUG
-                adoPtr = NativeLibrary.Load("D:\\workspace\\svn\\dmstar\\odbc\\odbc_rust\\target\\debug\\odbc_rust.dll");
-#else
+//#if DEBUG
+//                adoPtr = NativeLibrary.Load("D:\\workspace\\svn\\dmstar\\odbc\\odbc_rust\\target\\debug\\odbc_rust.dll");
+//#else
                 var deepitKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Deepdt\Dmstar ODBC(x64) Driver");
                 var install = deepitKey.GetValue("InstallLocation") + @"\o2jb.dll";
                 adoPtr = NativeLibrary.Load(install);
-#endif
+//#endif
             }
             else
             {
@@ -141,9 +141,7 @@ namespace dmstar.net.Utilities
 
                 uint resLen = process_func((byte*)reqPtr.ToPointer(), (uint)reqLen, &resDataPtr);
                 byte[] resBytes = new byte[resLen];
-#if DEBUG
-                Console.WriteLine("request len:{0}, response len:{1}", reqLen, resLen);
-#endif
+
                 if (resLen > 0)
                 {
                     for (uint i = 0; i < resLen; i++)
